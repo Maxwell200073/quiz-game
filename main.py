@@ -65,7 +65,8 @@ true_button = Btn(root, trueImg, trueHoverImg, borderwidth=0,
                   highlightthickness=0, highlightbackground=BG, command=lambda: check_answer('True'))
 true_button.pack(side='right', padx=10, pady=10, anchor='se')
 
-false_button = Btn(root, falseImg, falseHoverImg, borderwidth=0, highlightthickness=0, highlightbackground=BG, command=lambda: check_answer('False'))
+false_button = Btn(root, falseImg, falseHoverImg, borderwidth=0, highlightthickness=0,
+                   highlightbackground=BG, command=lambda: check_answer('False'))
 false_button.pack(side='left', padx=10, pady=10, anchor='sw')
 
 
