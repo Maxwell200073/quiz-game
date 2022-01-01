@@ -4,13 +4,13 @@ from tkinter import *
 from functools import partial
 from score import Score
 import html
-import time
 
 category_id = None
 FONT = ('Open Sans', 10)
 BG = '#375362'
 FG = '#ffffff'
 answer = ''
+
 
 def get_id(aid):
     global category_id
@@ -39,18 +39,17 @@ def check_answer(guess):
 
 
 def update_score():
-    global score
-    score += 1
-    score_label['text'] = f"Score: {score}"
+    score.increase_score()
+    score_label['text'] = f"Score: {score.score}"
 
 
-score = 0
+score = Score()
 root = Tk()
 root.title('Quiz Game')
 root.wm_iconbitmap('quiz.ico')
 root.configure(bg=BG, padx=20, pady=20)
 
-score_label = Label(root, text=f'Score: {score}', bg=BG, fg=FG, font=FONT)
+score_label = Label(root, text=f'Score: {score.score}', bg=BG, fg=FG, font=FONT)
 score_label.pack(side='top')
 
 question_label = Label(root, text='', fg=BG, font=('Open Sans', 15, 'bold'), wraplength=300, justify='center')
@@ -75,7 +74,7 @@ start_screen.title('Select Category')
 start_screen.configure(bg=BG, padx=20, pady=20)
 start_screen.wm_iconbitmap('quiz.ico')
 
-select_cat = Label(start_screen, text='Select A Category:', fg='#ffffff', font=('Open Sans', 13, 'bold'), bg=BG)
+select_cat = Label(start_screen, text='Select A Category:', fg=FG, font=('Open Sans', 13, 'bold'), bg=BG)
 select_cat.pack()
 
 categories = requests.get('https://opentdb.com/api_category.php')
@@ -84,8 +83,8 @@ names = categories.json()['trivia_categories']
 
 for name in names:
     name = Button(start_screen, text=f'{name["name"]}', command=partial(get_id, name['id']),
-                  borderwidth=0, font=FONT, fg='#ffffff',
-                  bg=BG, activeforeground='#cccccc', activebackground=BG)
+                  borderwidth=0, font=FONT, fg=FG,
+                  bg=BG, activeforeground=FG, activebackground=BG)
     name.pack()
 
 
